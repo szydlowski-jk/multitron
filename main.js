@@ -1,7 +1,7 @@
 const gc = document.getElementById('gc')
 const ctx = gc.getContext('2d')
 //const socket = io('http://localhost:3000')
-const socket = io('https://tronserv.herokuapp.com:3000')
+const socket = io('https://tronserv.herokuapp.com')
 
 // // Get the device pixel ratio, falling back to 1.
 // let dpr = window.devicePixelRatio || 1;
