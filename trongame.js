@@ -9,6 +9,7 @@ class TronGame {
             p.x = 0.1 + pl * 0.1
             p.y = 0.5
             console.log(`new player ${p}`)
+            this.state.players.push(p)
         }
     }
 
