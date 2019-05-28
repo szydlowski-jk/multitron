@@ -1,0 +1,19 @@
+{
+  "name": "multitron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szydlowski-jk/multitron.git"
+  },
+  "author": "Jacek Szydlowski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/szydlowski-jk/multitron/issues"
+  },
+  "homepage": "https://github.com/szydlowski-jk/multitron#readme"
+}
