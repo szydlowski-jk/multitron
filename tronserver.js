@@ -46,6 +46,7 @@ io.on('connection', socket => {
         console.log(`${[socket.id]} disconnected}`)
         connections--
         game = new tron.TronGame(connections)
+        io.emit('state', game.state)
     })
 })
 
