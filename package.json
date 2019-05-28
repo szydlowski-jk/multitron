@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "devStart": "nodemon tronserver.js"
+    "devStart": "nodemon tronserver.js",
+    "start": "node tronserver.js"
   },
   "repository": {
     "type": "git",
