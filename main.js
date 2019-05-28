@@ -1,5 +1,6 @@
 const gc = document.getElementById('gc')
 const ctx = gc.getContext('2d')
+const socket = io('http://localhost:3000')
 
 // // Get the device pixel ratio, falling back to 1.
 // let dpr = window.devicePixelRatio || 1;
@@ -10,6 +11,7 @@ const ctx = gc.getContext('2d')
 // gc.width = rect.width * dpr;
 // gc.height = rect.height * dpr;
 // ctx.scale(dpr, dpr);
+
 const DEG_TO_RAD = 0.0174533
 const FPS = 60
 const DT = 1000 / FPS
@@ -42,14 +44,21 @@ window.addEventListener('resize', resize)
 window.setInterval(loop, DT)
 
 resize()
+setupConnection()
 
 function loop () {
     update()
     draw()
 }
 
-function update () {
+function setupConnection () {
+    socket.on('connection', data => {
+        console.log(data)
+    })
+}
 
+function update () {
+    
 }
 
 function draw () {
