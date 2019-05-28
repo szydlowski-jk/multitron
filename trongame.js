@@ -4,7 +4,7 @@ class TronGame {
         this.state = {}
         this.state.players = []
 
-        for (pl in players) {
+        for (let pl = 0; pl < players; pl++) {
             let p = {}
             p.x = 0.1 + pl * 0.1
             p.y = 0.5
