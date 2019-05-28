@@ -56,6 +56,9 @@ function setupConnection () {
     socket.on('connection', data => {
         console.log(data)
     })
+    socket.on('state', data => {
+        console.log(data)
+    })
 }
 
 function update () {

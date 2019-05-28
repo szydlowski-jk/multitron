@@ -28,6 +28,7 @@ io.on('connection', socket => {
                 `Connected to MultiTronServer as player (${connections} / ${MAX_PLAYER_CONNECTIONS})`
             )
             game = new tron.TronGame(connections)
+            io.emit('state', game.state)
         } else {
             socket.emit(
                 'connection',
