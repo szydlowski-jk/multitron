@@ -1,5 +1,8 @@
+path = require('path')
+
 const PORT = 3000
-const INDEX = 'index.html'
+const INDEX = path.join(__dirname, 'index.html')
+
 express = require('express')
 
 const server = express()
