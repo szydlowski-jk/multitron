@@ -1,4 +1,16 @@
-const io = require('socket.io')(3000)
+path = require('path')
+
+const PORT = process.env.PORT || 5000
+const INDEX = path.join(__dirname, 'index.html')
+
+express = require('express')
+
+const server = express()
+  .use((req, res) => res.sendFile(INDEX) )
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+const io = require('socket.io')(server)
+
 tron = require('./trongame')
 const MAX_PLAYER_CONNECTIONS = 8
 const MAX_CONNECTIONS = 16
@@ -16,23 +28,25 @@ io.on('connection', socket => {
                 `Connected to MultiTronServer as player (${connections} / ${MAX_PLAYER_CONNECTIONS})`
             )
             game = new tron.TronGame(connections)
+            io.emit('state', game.state)
         } else {
             socket.emit(
                 'connection',
                 'Connected to MultiTronServer as spectator'
             )
-        } 
+        }
     } else {
         socket.emit(
             'connection',
             'Connection limit reached'
         )
-    }        
+    }
 
     socket.on('disconnect', () => {
         console.log(`${[socket.id]} disconnected}`)
         connections--
         game = new tron.TronGame(connections)
+        io.emit('state', game.state)
     })
 })
 

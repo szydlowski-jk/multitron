@@ -1,6 +1,7 @@
 const gc = document.getElementById('gc')
 const ctx = gc.getContext('2d')
-const socket = io('http://localhost:3000')
+//const socket = io('http://localhost:3000')
+const socket = io('https://tronserv.herokuapp.com')
 
 // // Get the device pixel ratio, falling back to 1.
 // let dpr = window.devicePixelRatio || 1;
@@ -30,10 +31,10 @@ function resize () {
     ww = gc.clientWidth
     wh = gc.clientHeight
     scale = Math.min(ww, wh)
-    
+
     gc.width = ww
     gc.height = wh
-    
+
     frameGradient = ctx.createLinearGradient(0, 0, ww/8, wh)
     frameGradient.addColorStop(0, "#ff48c4")
     frameGradient.addColorStop(0.7, "#2bd1fc")
@@ -55,10 +56,13 @@ function setupConnection () {
     socket.on('connection', data => {
         console.log(data)
     })
+    socket.on('state', data => {
+        console.log(data)
+    })
 }
 
 function update () {
-    
+
 }
 
 function draw () {
