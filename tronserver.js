@@ -17,6 +17,7 @@ const MAX_CONNECTIONS = 16
 let connections = 0
 
 let game
+let playersid = {}
 
 io.on('connection', socket => {
     console.log(`New connection [${socket.id}] #${connections+1}`)
@@ -25,8 +26,9 @@ io.on('connection', socket => {
         if (connections < MAX_PLAYER_CONNECTIONS) {
             socket.emit(
                 'connection',
-                `Connected to MultiTronServer as player (${connections} / ${MAX_PLAYER_CONNECTIONS})`
+                connections
             )
+            playersid[socket.id] = connections
             game = new tron.TronGame(connections)
             io.emit('state', game.state)
         } else {
@@ -46,6 +48,13 @@ io.on('connection', socket => {
         console.log(`${[socket.id]} disconnected}`)
         connections--
         game = new tron.TronGame(connections)
+        io.emit('state', game.state)
+    })
+
+    socket.on('update', data => {
+        let id = playersid[socket.id] - 1
+        game.state.players[id].x = data.x
+        game.state.players[id].y = data.y
         io.emit('state', game.state)
     })
 })

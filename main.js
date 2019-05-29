@@ -27,6 +27,9 @@ let C_BG = "#101010"
 let frameGradient
 let frameSize = 0.005
 
+let playerid = 0
+let gamedata
+
 function resize () {
     ww = gc.clientWidth
     wh = gc.clientHeight
@@ -43,6 +46,11 @@ function resize () {
 
 window.addEventListener('resize', resize)
 window.setInterval(loop, DT)
+gc.addEventListener('click', evt => {
+    let nx = (evt.clientX - gc.offsetLeft) / scale
+    let ny = (evt.clientY - gc.offsetTop) / scale
+    socket.emit('update', {id: playerid, x: nx, y: ny})
+})
 
 resize()
 setupConnection()
@@ -55,9 +63,11 @@ function loop () {
 function setupConnection () {
     socket.on('connection', data => {
         console.log(data)
+        playerid = data
     })
     socket.on('state', data => {
         console.log(data)
+        gamedata = data
     })
 }
 
@@ -75,4 +85,17 @@ function draw () {
         scale - ((scale * frameSize) * 2),
         scale - ((scale * frameSize) * 2),
     )
+
+    for (p of gamedata.players) {
+        ctx.fillStyle = "#ffff00"
+        if (p == playerid-1) {
+            ctx.fillStyle = "#ff00ff"
+        }
+        ctx.fillRect(
+            p.x * scale,
+            p.y * scale,
+            0.05 * scale,
+            0.05 * scale
+        )
+    }
 }
